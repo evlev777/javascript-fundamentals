@@ -1,5 +1,5 @@
 describe('THIS', () => {
-  it('Should invoke function with specific this', () => {
+  it.only('Should invoke function with specific this', () => {
     // DON'T CHANGE
     const a = { msg: 'aaa' };
     const b = { msg: 'bbb' };
@@ -9,11 +9,11 @@ describe('THIS', () => {
       return this.msg + ' ' + this.msg;
     }
 
-    expect(/* ??? */).toBe('aaa aaa');
-    expect(/* ??? */).toBe('bbb bbb');
+    expect(/* ??? */example.call(a)).toBe('aaa aaa');
+    expect(/* ??? */example.call(b)).toBe('bbb bbb');
   });
 
-  it('Should create function  connected with specific this', () => {
+  it.only('Should create function  connected with specific this', () => {
     // DON'T CHANGE
     function fn() {
       return this.name;
@@ -23,14 +23,14 @@ describe('THIS', () => {
     const bob = { name: 'Bob', get: 50 };
 
     // TODO: fix
-    const getTomName = fn;
-    const getBobName = fn;
+    const getTomName = fn.bind(tom);
+    const getBobName = fn.bind(bob);
 
     expect(getTomName()).toBe('Tom');
     expect(getBobName()).toBe('Bob');
   });
 
-  test('Function from object method. Fix me', () => {
+  test.only('Function from object method. Fix me', () => {
     // DON'T CHANGE
     const person = {
       firstName: 'Ivan',
@@ -43,7 +43,7 @@ describe('THIS', () => {
     };
 
     // TODO: FIX ME
-    const sayHello = person.sayHello;
+    const sayHello = sayHello.bind(person);
 
     expect(sayHello()).toBe(person.sayHello());
   });

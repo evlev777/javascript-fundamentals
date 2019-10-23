@@ -2,7 +2,9 @@ const PUT_ANSWER_HERE = Symbol();
 
 describe('Objects', () => {
   it('Should get the value at path of object. If the resolved value is undefined, the defaultValue is returned in its place.', () => {
-    function get(obj, path) {}
+    function get(obj, path) {
+       
+    }
 
     expect(get({ a: { b: { c: 3 } } }, 'a')).toStrictEqual({ b: { c: 3 } });
     expect(get({ a: { b: { c: 3 } } }, 'a.b.c')).toBe(3);
@@ -13,20 +15,24 @@ describe('Objects', () => {
   });
 
   it('Creates an object composed of the picked object properties.', () => {
-    function pick(obj, props) {}
+    function pick(obj, props) {
+      
+    }
     const object = { a: 1, b: '2', c: 3 };
 
     expect(pick(object, ['a', 'c'])).toStrictEqual({ a: 1, c: 3 });
     expect(pick(object, ['c'])).toStrictEqual({ c: 3 });
   });
 
-  it('Should clone object', () => {
+  it.only('Should clone object', () => {
     const person1 = {
       firstName: 'Ivan',
       secondName: 'Ivanov'
     };
 
-    const person2 = person1;
+    
+
+    const person2 = Object.assign({},person1);
     person2.firstName += ' Jr.';
 
     expect(person1.firstName).toBe('Ivan');
@@ -34,25 +40,34 @@ describe('Objects', () => {
     expect(person2.secondName).toBe('Ivanov');
   });
 
-  it('Performs a shallow comparison between two values to determine if they are equivalent.', () => {
+  it.only('Performs a shallow comparison between two values to determine if they are equivalent.', () => {
     const obj1 = { a: 1, b: 2 };
     const obj2 = { a: 1, b: 2 };
     const obj3 = { a: 1, b: 4 };
 
-    expect(/* compare(obj1, obj2) */).toBe(true);
-    expect(/* compare(obj1, obj3) */).toBe(false);
+    function compare(firstObj,secondObj){
+      let eq = JSON.stringify(firstObj) == JSON.stringify(secondObj); 
+      return eq;
+    }
+
+    expect( compare(obj1, obj2)).toBe(true);
+    expect(compare(obj1, obj3)).toBe(false);
   });
 
-  it('Performs a deep comparison between two values to determine if they are equivalent.', () => {
+  it.only('Performs a deep comparison between two values to determine if they are equivalent.', () => {
+    function compare(firstObj,secondObj){
+      let eq = JSON.stringify(firstObj) == JSON.stringify(secondObj); 
+      return eq;
+    }
     const obj1 = { a: 1, b: { a: 2 } };
     const obj2 = { a: 1, b: { a: 2 } };
 
-    expect('/* compare(obj1, obj2) */').toBe(true);
+    expect(compare(obj1, obj2)).toBe(true);
   });
 
-  it('Fix me', () => {
+  it.only('Fix me', () => {
     function hasAccess(role) {
-      if (role == { type: 'admin' }) {
+      if (JSON.stringify(role) == JSON.stringify({ type: 'admin' })) {
         return true;
       } else {
         return false;

@@ -1,7 +1,14 @@
 describe('Prototype', () => {
-  it('Should use Function constructor without prototype', () => {
+  it.only('Should use Function constructor without prototype', () => {
     // TODO: implement
-    function User(name) {}
+    function User(name) {
+      this.name = name;
+      this.sayHello = function(){
+        return 'Hello, ' + this.name;
+      }
+    }
+
+    
 
 
 
@@ -15,13 +22,21 @@ describe('Prototype', () => {
     expect(user1.sayHello !== user2.sayHello).toBe(true);
   });
 
-  it('Should use prototype', () => {
+  it.only('Should use prototype', () => {
     // TODO: implement
-    function User(name) {}
+    function User(name) {
+      this.name = name;
+    }
 
+    User.prototype = {
+      sayHello : function(){
+        return 'Hello, ' + this.name;
+      }
+    }
 
     const user1 = new User('user1');
     const user2 = new User('user2');
+
 
     expect(user1.name).toBe('user1');
     expect(user2.name).toBe('user2');
@@ -30,9 +45,18 @@ describe('Prototype', () => {
     expect(user1.sayHello === user2.sayHello).toBe(true);
   });
 
-  it('Create class ArticleList with 2 methods add and articleCount', () => {
+  it.only('Create class ArticleList with 2 methods add and articleCount', () => {
     // TODO: implement
-    function ArticleList() {}
+    function ArticleList(){
+      this.list = [];
+    }
+
+    ArticleList.prototype = {
+      add : function(text){
+        return this.list.push(text);
+      }
+    }
+
 
     const list1 = new ArticleList();
     const list2 = new ArticleList();
@@ -160,7 +184,7 @@ describe('Prototype', () => {
     expect(false).toBe(true);
   });
 
-  it('Should use Object.create for extending one object from another', () => {
+  it.only('Should use Object.create for extending one object from another', () => {
     // DON'T CHANGE
     const greetings = {
       msg: 'Hello',
@@ -171,11 +195,11 @@ describe('Prototype', () => {
       }
     };
 
-    let helloTom;
-    let greetingsBob;
+    let helloTom = Object.create(greetings);
+    let greetingsBob = Object.create(greetings);
 
-    expect(/* helloTom.greetings()*/).toBe('Hello, Tom!');
-    expect(/* greetingsBob.greetings() */).toBe('Greetings, Bob!');
+    expect( helloTom.greetings()).toBe('Hello, Tom!');
+    expect( greetingsBob.greetings()).toBe('Greetings, Bob!');
     expect(greetings.greetings()).toBe('Hello, guest!');
   });
 });
